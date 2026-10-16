@@ -3,18 +3,17 @@ import config from '../config/index.js';
 
 const { Pool } = pg;
 
-// Initialize PostgreSQL connection pool using connection string from config
+// Initialize PostgreSQL connection pool
+const isCloudDb = config.databaseUrl.includes('neon.tech') || 
+                  config.databaseUrl.includes('supabase') || 
+                  config.databaseUrl.includes('sslmode=require') || 
+                  config.nodeEnv === 'production';
 const pool = new Pool({
   connectionString: config.databaseUrl,
-  max: 20, 
-  idleTimeoutMillis: 30000, 
-  connectionTimeoutMillis: 5000, 
-});
-
-// Event listener for idle pool errors
-pool.on('error', (err) => {
-  console.error('❌ Unexpected error on idle PostgreSQL client:', err);
-  process.exit(-1);
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
+  ssl: isCloudDb ? { rejectUnauthorized: false } : false,
 });
 
 
