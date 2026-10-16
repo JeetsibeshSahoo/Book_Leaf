@@ -1,24 +1,28 @@
 import axios from 'axios';
 
-// Get base URL from environment or default to local backend
-let rawBaseUrl =
+// Detect whether we are running locally (localhost) or in production on Vercel
+const isLocalhost =
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+// Production Render backend vs Local backend
+const DEFAULT_URL = isLocalhost
+  ? 'http://localhost:5000/api'
+  : 'https://book-leaf-backend.onrender.com/api';
+
+const API_BASE_URL =
   (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) ||
-  'http://localhost:5000/api';
+  DEFAULT_URL;
 
-// Ensure the base URL ends with /api cleanly
-rawBaseUrl = rawBaseUrl.replace(/\/+$/, '');
-if (!rawBaseUrl.endsWith('/api')) {
-  rawBaseUrl += '/api';
-}
-
-const API_BASE_URL = rawBaseUrl;
+// Base server URL (without /api) for Server-Sent Events (SSE)
+export const SERVER_BASE_URL = API_BASE_URL.replace(/\/api$/, '');
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 15000, // 15-second timeout
+  timeout: 20000,
 });
 
 // Request Interceptor: Injects Authorization Bearer token into all outgoing requests
@@ -58,5 +62,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-// Base server URL (without /api) for Server-Sent Events (SSE)
-export const SERVER_BASE_URL = API_BASE_URL.replace(/\/api$/, '');
