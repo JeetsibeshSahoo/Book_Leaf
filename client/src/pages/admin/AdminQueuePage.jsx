@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../../api/client.js';
+import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
 import { StatusBadge, PriorityBadge, CategoryBadge } from '../../components/Badges.jsx';
 import {
   Inbox,
@@ -58,7 +58,7 @@ export const AdminQueuePage = () => {
 
   // Real-time Queue Stream (SSE)
   useEffect(() => {
-    const sseUrl = 'http://localhost:5000/api/admin/queue/stream';
+    const sseUrl = `${SERVER_BASE_URL}/api/admin/queue/stream`;
     const es = new EventSource(sseUrl);
     eventSourceRef.current = es;
 

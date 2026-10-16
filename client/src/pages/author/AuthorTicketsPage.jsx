@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import apiClient from '../../api/client.js';
+import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
 import { StatusBadge, PriorityBadge, CategoryBadge } from '../../components/Badges.jsx';
 import {
   MessageSquare,
@@ -12,7 +12,6 @@ import {
   PlusCircle,
   RefreshCw,
 } from 'lucide-react';
-import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
 
 export const AuthorTicketsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

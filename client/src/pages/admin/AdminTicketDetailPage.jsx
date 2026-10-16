@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import apiClient from '../../api/client.js';
+import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
 import { StatusBadge, PriorityBadge } from '../../components/Badges.jsx';
 import {
   ArrowLeft,
@@ -14,7 +14,7 @@ import {
   Edit3,
   RefreshCw,
 } from 'lucide-react';
-import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
+
 
 export const AdminTicketDetailPage = () => {
   const { id } = useParams();
