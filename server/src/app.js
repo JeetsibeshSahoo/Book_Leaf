@@ -45,13 +45,20 @@ app.get('/', (req, res) => {
 });
 
 
-// 3. API ROUTE REGISTRATION
 
+// 3. API ROUTE REGISTRATION (Supports both /api/* and /* routes)
+
+// Standard REST routes with /api prefix
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Compatibility mounts without /api prefix
+app.use('/auth', authRoutes);
+app.use('/books', bookRoutes);
+app.use('/tickets', ticketRoutes);
+app.use('/admin', adminRoutes);
 
 // 4. 404 NOT FOUND & GLOBAL ERROR HANDLER
 // Catch any route that doesn't match above
