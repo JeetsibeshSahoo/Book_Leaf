@@ -86,3 +86,30 @@ npm run db:seed
 
 # Start backend server
 npm run dev
+
+# 📚 BookLeaf Publishing - Author Support & Communication Portal
+
+> **Live Demo:** [https://book-leaf-green.vercel.app](https://book-leaf-green.vercel.app)  
+> **API Base URL:** `https://book-leaf-backend.onrender.com/api`  
+> **Health Check:** [https://book-leaf-backend.onrender.com/health](https://book-leaf-backend.onrender.com/health)
+
+A full-stack operational portal and author communication system powered by AI-assisted response generation, built for BookLeaf Publishing's technical evaluation.
+
+---
+
+## 📋 Test Login Credentials
+
+Pre-seeded directly with `bookleaf_sample_data.json`:
+
+### 👑 Operations Team (Admin Portal)
+* **Email:** `admin@bookleaf.com`
+* **Password:** `admin123`
+
+### ✍️ Sample Authors (Author Portal)
+* **Email:** `priya.sharma@email.com` (Published titles with pending royalty)
+* **Email:** `sneha.kulkarni@email.com` (Has book *Midnight in Mysore* in production)
+* **Email:** `rohit.kapoor@email.com`
+* **Email:** `vikram.joshi@email.com`
+* **Password:** `password123` *(for all authors)*
+
+*(The live login screen also includes 1-click test login pills for immediate access).*
