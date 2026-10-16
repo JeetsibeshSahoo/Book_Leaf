@@ -1,9 +1,17 @@
 import axios from 'axios';
 
-
-const API_BASE_URL =
+// Get base URL from environment or default to local backend
+let rawBaseUrl =
   (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) ||
   'http://localhost:5000/api';
+
+// Ensure the base URL ends with /api cleanly
+rawBaseUrl = rawBaseUrl.replace(/\/+$/, '');
+if (!rawBaseUrl.endsWith('/api')) {
+  rawBaseUrl += '/api';
+}
+
+const API_BASE_URL = rawBaseUrl;
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -13,6 +21,7 @@ const apiClient = axios.create({
   timeout: 15000, // 15-second timeout
 });
 
+// Request Interceptor: Injects Authorization Bearer token into all outgoing requests
 apiClient.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -26,6 +35,7 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Response Interceptor: Intercepts 401s and extracts friendly error messages
 apiClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
@@ -48,3 +58,5 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
+// Base server URL (without /api) for Server-Sent Events (SSE)
+export const SERVER_BASE_URL = API_BASE_URL.replace(/\/api$/, '');

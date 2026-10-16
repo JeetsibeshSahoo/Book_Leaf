@@ -12,6 +12,7 @@ import {
   PlusCircle,
   RefreshCw,
 } from 'lucide-react';
+import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
 
 export const AuthorTicketsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -84,7 +85,7 @@ export const AuthorTicketsPage = () => {
       eventSourceRef.current.close();
     }
 
-    const sseUrl = `http://localhost:5000/api/tickets/${selectedTicketId}/stream`;
+    const sseUrl = `${SERVER_BASE_URL}/api/admin/queue/stream`;
     const es = new EventSource(sseUrl);
     eventSourceRef.current = es;
 

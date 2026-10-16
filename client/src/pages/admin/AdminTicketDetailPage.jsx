@@ -14,6 +14,7 @@ import {
   Edit3,
   RefreshCw,
 } from 'lucide-react';
+import apiClient, { SERVER_BASE_URL } from '../../api/client.js';
 
 export const AdminTicketDetailPage = () => {
   const { id } = useParams();
@@ -64,7 +65,7 @@ export const AdminTicketDetailPage = () => {
   useEffect(() => {
     if (!id) return;
 
-    const sseUrl = `http://localhost:5000/api/tickets/${id}/stream`;
+    const sseUrl = `${SERVER_BASE_URL}/api/tickets/${id}/stream`;
     const es = new EventSource(sseUrl);
 
     es.addEventListener('new_message', (e) => {
